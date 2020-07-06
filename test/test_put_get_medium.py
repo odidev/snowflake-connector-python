@@ -397,7 +397,7 @@ ratio number(6,2))
             run(cnx, "drop table if exists {name}")
 
 
-@pytest.mark.skipif(os.getenv("SNOWFLAKE_GCP") is not None, reason="GCS doesn't skip even if the same file exist ")
+@pytest.mark.skipif(os.getenv("CLOUD_PROVIDER") == 'gcp', reason="GCS doesn't skip even if the same file exist ")
 def test_put_copy_duplicated_files_s3(tmpdir, test_files, conn_cnx,
                                       db_parameters):
     """[s3] Puts and Copies duplicated files."""
@@ -481,7 +481,7 @@ ratio number(6,2))
             run(cnx, "drop table if exists {name}")
 
 
-@pytest.mark.skipif(os.getenv("SNOWFLAKE_GCP") is not None, reason="GCS doesn't skip even if the same file exist ")
+@pytest.mark.skipif(os.getenv("CLOUD_PROVIDER") == 'gcp', reason="GCS doesn't skip even if the same file exist ")
 def test_put_collision(tmpdir, test_files, conn_cnx, db_parameters):
     """File name collision test. The data set have the same file names but contents are different."""
     number_of_files = 5
@@ -680,7 +680,7 @@ def test_put_get_large_files_s3(tmpdir, test_files, conn_cnx, db_parameters):
             run(cnx, "RM @~/{dir}")
 
 
-@pytest.mark.skipif(os.getenv("SNOWFLAKE_GCP") is not None, reason="PUT and GET  is not supportd for GCP yet")
+@pytest.mark.skipif(os.getenv("CLOUD_PROVIDE") == 'gcp', reason="PUT and GET  is not supportd for GCP yet")
 def test_put_get_with_hint(tmpdir, conn_cnx, db_parameters):
     """SNOW-15153: PUTs and GETs with hint."""
     tmp_dir = str(tmpdir.mkdir('put_get_with_hint'))
